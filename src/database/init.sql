@@ -1,0 +1,32 @@
+CREATE TABLE IF NOT EXISTS clientes (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    telefone VARCHAR(20) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    senha VARCHAR(200),
+    tipo VARCHAR(20) DEFAULT 'cliente',
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS pedidos (
+    id SERIAL PRIMARY KEY,
+    cliente_id INTEGER NOT NULL REFERENCES clientes(id),
+    sabor VARCHAR(50) NOT NULL,
+    tamanho VARCHAR(20) NOT NULL,
+    horario_retirada TIME NOT NULL,
+    status VARCHAR(20) DEFAULT 'pendente',
+    quantidade INTEGER DEFAULT 1,
+    preco DECIMAL(10,2) DEFAULT 0,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS produtos (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    preco DECIMAL(10,2) NOT NULL,
+    tamanho VARCHAR(20) NOT NULL,
+    disponivel BOOLEAN DEFAULT true,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
