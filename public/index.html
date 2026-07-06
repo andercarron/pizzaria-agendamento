@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍕 Pizzaria - Pedidos</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+    <!-- ═══════════════ BARRA SUPERIOR ═══════════════ -->
+    <div class="barra-topo">
+        <span id="nome-usuario"></span>
+        <div>
+            <button onclick="excluirConta()" class="btn-excluir-conta">Excluir Conta</button>
+            <button onclick="logout()" class="btn-cancelar">Sair</button>
+        </div>
+    </div>
+
+    <h1>🍕 Pizzaria</h1>
+
+    <!-- ═══════════════ ABAS DE NAVEGAÇÃO ═══════════════ -->
+    <nav class="abas-navegacao">
+        <button class="aba-btn active" onclick="mostrarAba('aba-pedido')">🛒 Fazer Pedido</button>
+        <button class="aba-btn" onclick="mostrarAba('aba-cupons')">📋 Meus Pedidos</button>
+        <button class="aba-btn aba-admin" id="btn-admin" style="display:none;" onclick="mostrarAba('aba-admin')">🔧 Admin</button>
+    </nav>
+
+    <!-- ═══════════════ ABA 1: FAZER PEDIDO ═══════════════ -->
+    <div id="aba-pedido" class="aba-conteudo active">
+        <section>
+            <h2>🍕 Cardápio</h2>
+            <div id="cardapio" class="cardapio-lista"></div>
+        </section>
+
+        <section>
+            <h2>🛒 Carrinho</h2>
+            <div id="carrinho-container">
+                <div id="carrinho-vazio" class="carrinho-vazio">
+                    Seu carrinho está vazio. Clique em [+] para adicionar pizzas.
+                </div>
+                <table id="tabela-carrinho" style="display: none;">
+                    <thead>
+                        <tr><th>Item</th><th>Preço</th><th>Qtd</th><th>Subtotal</th><th></th></tr>
+                    </thead>
+                    <tbody id="corpo-carrinho"></tbody>
+                </table>
+                <div id="total-carrinho" class="total-carrinho" style="display: none;">
+                    <span>Total: <strong id="valor-total">R$ 0,00</strong></span>
+                </div>
+            </div>
+            <div id="checkout" style="display: none;">
+                <div>
+                    <label for="horario">Horário da retirada:</label>
+                    <input type="time" id="horario" required>
+                </div>
+                <button onclick="finalizarPedido()">Finalizar Pedido</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- ═══════════════ ABA 2: MEUS PEDIDOS ═══════════════ -->
+    <div id="aba-cupons" class="aba-conteudo">
+        <section>
+            <h2 id="titulo-tabela">Meus Pedidos</h2>
+            <div id="corpo-tabela" class="cupons-container"></div>
+        </section>
+    </div>
+
+    <!-- ═══════════════ ABA 3: ADMIN ═══════════════ -->
+    <div id="aba-admin" class="aba-conteudo">
+        <section>
+            <h2>🔧 Painel Administrativo</h2>
+            
+            <nav class="abas-navegacao sub-abas">
+                <button class="aba-btn active" onclick="mostrarSubAba('sub-dashboard')">📊 Dashboard</button>
+                <button class="aba-btn" onclick="mostrarSubAba('sub-pedidos')">📋 Pedidos</button>
+                <button class="aba-btn" onclick="mostrarSubAba('sub-clientes')">👥 Clientes</button>
+                <button class="aba-btn" onclick="mostrarSubAba('sub-produtos')">📦 Produtos</button>
+            </nav>
+
+            <!-- Sub-aba Dashboard -->
+            <div id="sub-dashboard" class="aba-conteudo active">
+                <div class="dashboard-grid">
+                    <div class="dash-card">
+                        <h3>📅 Hoje</h3>
+                        <span id="dash-hoje" class="dash-numero">-</span>
+                        <small>pedidos</small>
+                    </div>
+                    <div class="dash-card">
+                        <h3>✅ Faturamento</h3>
+                        <span id="dash-faturamento" class="dash-numero verde">-</span>
+                        <small>pedidos concluídos</small>
+                    </div>
+                    <div class="dash-card">
+                        <h3>❌ Perda</h3>
+                        <span id="dash-perda" class="dash-numero vermelho">-</span>
+                        <small>cancelados</small>
+                    </div>
+                    <div class="dash-card">
+                        <h3>🎫 Ticket Médio</h3>
+                        <span id="dash-ticket" class="dash-numero">-</span>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid-2col">
+                    <div class="dash-card">
+                        <h3>🍕 Mais Vendidos</h3>
+                        <div id="dash-produtos"></div>
+                    </div>
+                    <div class="dash-card">
+                        <h3>🕐 Horários de Pico</h3>
+                        <div id="dash-horarios"></div>
+                    </div>
+                </div>
+
+                <div class="dash-card">
+                    <h3>⭐ Clientes Fiéis</h3>
+                    <table>
+                        <thead><tr><th>Cliente</th><th>Pedidos</th><th>Total Gasto</th></tr></thead>
+                        <tbody id="dash-clientes"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-aba Pedidos -->
+            <div id="sub-pedidos" class="aba-conteudo">
+                <div class="filtros-admin">
+                    <input type="text" id="filtro-cliente" placeholder="Nome do cliente">
+                    <input type="text" id="filtro-sabor" placeholder="Sabor">
+                    <select id="filtro-status" title="Filtrar por status">
+                        <option value="">Todos os status</option>
+                        <option value="pendente">Pendente</option>
+                        <option value="pronto">Pronto</option>
+                        <option value="retirado">Retirado</option>
+                        <option value="cancelado">Cancelado</option>
+                    </select>
+                    <input type="date" id="filtro-data-inicio" title="Data início">
+                    <input type="date" id="filtro-data-fim" title="Data fim">
+                    <button onclick="filtrarPedidosAdmin()" class="btn-pronto">🔍 Filtrar</button>
+                    <button onclick="limparFiltrosPedidos()" class="btn-cancelar">Limpar</button>
+                </div>
+                <table id="tabela-pedidos-admin">
+                    <thead>
+                        <tr>
+                            <th>ID</th><th>Cliente</th><th>Sabor</th><th>Preço</th>
+                            <th>Retirada</th><th>Status</th><th>Criado em</th><th>Atualizado em</th><th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpo-tabela-pedidos-admin"></tbody>
+                </table>
+            </div>
+
+            <!-- Sub-aba Clientes -->
+            <div id="sub-clientes" class="aba-conteudo">
+                <div class="filtros-admin">
+                    <input type="text" id="filtro-nome-cliente" placeholder="Nome ou email">
+                    <button onclick="buscarClientesAdmin()" class="btn-pronto">🔍 Buscar</button>
+                    <button onclick="listarTodosClientes()" class="btn-cancelar">Listar Todos</button>
+                </div>
+                <table id="tabela-clientes-admin">
+                    <thead>
+                        <tr>
+                            <th>ID</th><th>Nome</th><th>Email</th><th>Telefone</th><th>Tipo</th><th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpo-tabela-clientes-admin"></tbody>
+                </table>
+            </div>
+
+            <!-- Sub-aba Produtos -->
+            <div id="sub-produtos" class="aba-conteudo">
+                <form id="form-produto" class="form-admin">
+                    <input type="hidden" id="produto-id">
+                    <div class="form-linha">
+                        <div><label for="produto-nome">Nome:</label><input type="text" id="produto-nome" required></div>
+                        <div><label for="produto-descricao">Descrição:</label><input type="text" id="produto-descricao"></div>
+                    </div>
+                    <div class="form-linha">
+                        <div><label for="produto-preco">Preço (R$):</label><input type="number" id="produto-preco" step="0.01" required></div>
+                        <div><label for="produto-tamanho">Tamanho:</label>
+                            <select id="produto-tamanho" title="Tamanho do produto" required>
+                                <option value="Pequena">Pequena</option>
+                                <option value="Média" selected>Média</option>
+                                <option value="Grande">Grande</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" id="btn-salvar-produto">Adicionar Produto</button>
+                    <button type="button" onclick="cancelarEdicao()" id="btn-cancelar-edicao" style="display:none;background-color:#999;">Cancelar</button>
+                </form>
+                <table id="tabela-produtos">
+                    <thead>
+                        <tr><th>Nome</th><th>Preço</th><th>Tamanho</th><th>Disponível</th><th>Ações</th></tr>
+                    </thead>
+                    <tbody id="corpo-tabela-produtos"></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

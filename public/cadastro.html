@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Cadastro - Pizzaria</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <div class="container-auth">
+        <h1> Pizzaria</h1>
+        <h2>Criar Conta</h2>
+        
+        <form id="form-cadastro">
+            <div>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" placeholder="Seu nome completo" required>
+            </div>
+            
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="seu@email.com" required>
+            </div>
+            
+            <div>
+                <label for="telefone">Telefone:</label>
+                <input type="text" id="telefone" placeholder="11999999999" required>
+            </div>
+            
+            <div>
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" placeholder="Mínimo 6 caracteres" required minlength="6">
+            </div>
+            
+            <div>
+                <label for="confirmar-senha">Confirmar Senha:</label>
+                <input type="password" id="confirmar-senha" placeholder="Repita a senha" required>
+            </div>
+            
+            <div id="erro-cadastro" class="erro-mensagem" style="display: none;"></div>
+            <div id="sucesso-cadastro" class="sucesso-mensagem" style="display: none;"></div>
+            
+            <button type="submit">Cadastrar</button>
+        </form>
+        
+        <p class="link-auth">
+            Já tem conta? <a href="login.html">Faça login</a>
+        </p>
+    </div>
+
+    <script>
+        document.getElementById('form-cadastro').addEventListener('submit', async (evento) => {
+            evento.preventDefault();
+
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const telefone = document.getElementById('telefone').value;
+            const senha = document.getElementById('senha').value;
+            const confirmarSenha = document.getElementById('confirmar-senha').value;
+            const erroDiv = document.getElementById('erro-cadastro');
+            const sucessoDiv = document.getElementById('sucesso-cadastro');
+
+            // ─── VALIDAÇÕES DO FRONT-END ───
+            if (senha !== confirmarSenha) {
+                erroDiv.textContent = 'As senhas não coincidem';
+                erroDiv.style.display = 'block';
+                return; // Para aqui
+            }
+
+            if (senha.length < 6) {
+                erroDiv.textContent = 'A senha deve ter no mínimo 6 caracteres';
+                erroDiv.style.display = 'block';
+                return;
+            }
+
+            try {
+                const resposta = await fetch('http://localhost:3000/auth/cadastrar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome, email, telefone, senha })
+                });
+
+                const dados = await resposta.json();
+
+                if (!resposta.ok) {
+                    throw new Error(dados.erro || 'Erro ao cadastrar');
+                }
+
+                // ─── CADASTRO BEM SUCEDIDO ───
+                sucessoDiv.textContent = 'Cadastro realizado! Redirecionando...';
+                sucessoDiv.style.display = 'block';
+                erroDiv.style.display = 'none';
+
+                // Salva o token que já veio na resposta
+                localStorage.setItem('token', dados.token);
+                localStorage.setItem('cliente', JSON.stringify(dados.cliente));
+
+                // Redireciona após 2 segundos
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+
+            } catch (erro) {
+                erroDiv.textContent = erro.message;
+                erroDiv.style.display = 'block';
+                sucessoDiv.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

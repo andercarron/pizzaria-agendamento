@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Login - Pizzaria</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <div class="container-auth">
+        <h1> Pizzaria</h1>
+        <h2>Entrar</h2>
+        
+        <form id="form-login">
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="seu@email.com" required>
+            </div>
+            
+            <div>
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" placeholder="Sua senha" required>
+            </div>
+            
+            <div id="erro-login" class="erro-mensagem" style="display: none;"></div>
+            
+            <button type="submit">Entrar</button>
+        </form>
+        
+        <p class="link-auth">
+            Não tem conta? <a href="cadastro.html">Cadastre-se</a>
+        </p>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════
+        // LÓGICA DE LOGIN
+        // ═══════════════════════════════════════════
+        document.getElementById('form-login').addEventListener('submit', async (evento) => {
+            evento.preventDefault();
+            // ☝️ Impede o formulário de recarregar a página
+
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+            const erroDiv = document.getElementById('erro-login');
+
+            try {
+                const resposta = await fetch('http://localhost:3000/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, senha })
+                });
+                // ☝️ Envia email e senha para a API
+
+                const dados = await resposta.json();
+                // ☝️ Converte a resposta JSON para objeto JavaScript
+
+                if (!resposta.ok) {
+                    // Se a resposta NÃO for ok (status 400 ou 401)
+                    throw new Error(dados.erro || 'Erro ao fazer login');
+                }
+
+                // ─── SALVAR TOKEN E DADOS ───
+                localStorage.setItem('token', dados.token);
+                localStorage.setItem('cliente', JSON.stringify(dados.cliente));
+                // ☝️ localStorage = "gaveta" do navegador que persiste mesmo depois de fechar
+                //    Guardamos o token JWT e os dados do cliente logado
+                //    JSON.stringify() converte objeto para texto
+
+                // ─── REDIRECIONAR ───
+                window.location.href = 'index.html';
+                // ☝️ Muda para a página principal
+
+            } catch (erro) {
+                erroDiv.textContent = erro.message;
+                erroDiv.style.display = 'block';
+                // ☝️ Mostra a mensagem de erro na tela
+            }
+        });
+    </script>
+</body>
+</html>

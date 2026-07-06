@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Admin - Pizzaria</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+    <!-- ═══════════════ BARRA SUPERIOR ═══════════════ -->
+    <div class="barra-topo">
+        <span id="nome-usuario"></span>
+        <button onclick="logout()" class="btn-cancelar">Sair</button>
+    </div>
+
+    <h1>🔧 Painel Administrativo</h1>
+
+    <!-- ═══════════════ TABELA DE PEDIDOS ═══════════════ -->
+    <section>
+        <h2>Todos os Pedidos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Cliente</th>
+                    <th>Telefone</th>
+                    <th>Sabor</th>
+                    <th>Tamanho</th>
+                    <th>Retirada</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody id="corpo-tabela">
+                <!-- Preenchido pelo JavaScript -->
+            </tbody>
+        </table>
+    </section>
+
+    <script src="admin.js"></script>
+</body>
+</html>
