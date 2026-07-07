@@ -1,4 +1,9 @@
 // ═══════════════════════════════════════════
+// CONFIGURAÇÃO: URL DA API
+// ═══════════════════════════════════════════
+const API_URL = 'https://pizzaria-agendamento.onrender.com';
+
+// ═══════════════════════════════════════════
 // BLOCO 1: VERIFICAÇÃO DE AUTENTICAÇÃO
 // ═══════════════════════════════════════════
 const token = localStorage.getItem('token');
@@ -62,7 +67,7 @@ window.excluirConta = async () => {
     }
 
     try {
-        const resposta = await fetchAutenticado('http://localhost:3000/auth/conta', {
+        const resposta = await fetchAutenticado(`${API_URL}/auth/conta`, {
             method: 'DELETE',
             body: JSON.stringify({ senha })
         });
@@ -128,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ═══════════════════════════════════════════
     async function carregarCardapio() {
         try {
-            const resposta = await fetch('http://localhost:3000/produtos');
+            const resposta = await fetch(`${API_URL}/produtos`);
             const produtos = await resposta.json();
 
             const cardapio = document.getElementById('cardapio');
@@ -249,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             for (const item of itens) {
-                const resposta = await fetchAutenticado('http://localhost:3000/pedidos', {
+                const resposta = await fetchAutenticado(`${API_URL}/pedidos`, {
                     method: 'POST',
                     body: JSON.stringify({
                         cliente_id: clienteLogado.id,
@@ -286,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ═══════════════════════════════════════════
     async function carregarPedidos() {
         try {
-            const resposta = await fetchAutenticado('http://localhost:3000/pedidos');
+            const resposta = await fetchAutenticado(`${API_URL}/pedidos`);
             const pedidos = await resposta.json();
 
             const corpoTabela = document.getElementById('corpo-tabela');
@@ -393,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.cancelarPedidos = async (ids) => {
         if (confirm('Tem certeza que deseja cancelar este(s) pedido(s)?')) {
             for (const id of ids) {
-                await fetchAutenticado(`http://localhost:3000/pedidos/${id}/cancelar`, {
+                await fetchAutenticado(`${API_URL}/pedidos/${id}/cancelar`, {
                     method: 'PATCH'
                 });
             }
@@ -409,7 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 9.6: ATUALIZAR STATUS (ADMIN)
     // ═══════════════════════════════════════════
     window.atualizarStatus = async (id, status) => {
-        await fetchAutenticado(`http://localhost:3000/admin/pedidos/${id}/status`, {
+        await fetchAutenticado(`${API_URL}/admin/pedidos/${id}/status`, {
             method: 'PATCH',
             body: JSON.stringify({ status })
         });
@@ -422,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ═══════════════════════════════════════════
     async function carregarDashboard() {
         try {
-            const resResumo = await fetchAutenticado('http://localhost:3000/admin/dashboard/resumo');
+            const resResumo = await fetchAutenticado(`${API_URL}/admin/dashboard/resumo`);
             const resumo = await resResumo.json();
 
             document.getElementById('dash-hoje').textContent = resumo.hoje;
@@ -430,21 +435,21 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('dash-perda').textContent = `R$ ${resumo.perda.toFixed(2)}`;
             document.getElementById('dash-ticket').textContent = `R$ ${resumo.ticketMedio.toFixed(2)}`;
 
-            const resProdutos = await fetchAutenticado('http://localhost:3000/admin/dashboard/produtos');
+            const resProdutos = await fetchAutenticado(`${API_URL}/admin/dashboard/produtos`);
             const produtos = await resProdutos.json();
             const divProdutos = document.getElementById('dash-produtos');
             divProdutos.innerHTML = produtos.slice(0, 5).map((p, i) =>
                 `<div class="rank-item">${i+1}. ${p.sabor} - ${p.total_vendido}x (R$ ${Number(p.receita).toFixed(2)})</div>`
             ).join('') || '<p style="color:#999;">Sem dados</p>';
 
-            const resHorarios = await fetchAutenticado('http://localhost:3000/admin/dashboard/horarios');
+            const resHorarios = await fetchAutenticado(`${API_URL}/admin/dashboard/horarios`);
             const horarios = await resHorarios.json();
             const divHorarios = document.getElementById('dash-horarios');
             divHorarios.innerHTML = horarios.map((h, i) =>
                 `<div class="rank-item">${i+1}. ${h.horario_retirada} - ${h.total} pedidos</div>`
             ).join('') || '<p style="color:#999;">Sem dados</p>';
 
-            const resClientes = await fetchAutenticado('http://localhost:3000/admin/dashboard/clientes');
+            const resClientes = await fetchAutenticado(`${API_URL}/admin/dashboard/clientes`);
             const clientes = await resClientes.json();
             const tbody = document.getElementById('dash-clientes');
             tbody.innerHTML = clientes.map(c =>
@@ -461,7 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ═══════════════════════════════════════════
     window.carregarProdutosAdmin = async () => {
         try {
-            const resposta = await fetchAutenticado('http://localhost:3000/admin/produtos');
+            const resposta = await fetchAutenticado(`${API_URL}/admin/produtos`);
             const produtos = await resposta.json();
 
             const corpo = document.getElementById('corpo-tabela-produtos');
@@ -520,12 +525,12 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             let resposta;
             if (id) {
-                resposta = await fetchAutenticado(`http://localhost:3000/admin/produtos/${id}`, {
+                resposta = await fetchAutenticado(`${API_URL}/admin/produtos/${id}`, {
                     method: 'PUT',
                     body: JSON.stringify({ nome, descricao, preco, tamanho, disponivel: true })
                 });
             } else {
-                resposta = await fetchAutenticado('http://localhost:3000/admin/produtos', {
+                resposta = await fetchAutenticado(`${API_URL}/admin/produtos`, {
                     method: 'POST',
                     body: JSON.stringify({ nome, descricao, preco, tamanho })
                 });
@@ -548,7 +553,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.deletarProduto = async (id) => {
         if (confirm('Tem certeza que deseja excluir este produto?')) {
-            await fetchAutenticado(`http://localhost:3000/admin/produtos/${id}`, {
+            await fetchAutenticado(`${API_URL}/admin/produtos/${id}`, {
                 method: 'DELETE'
             });
             carregarProdutosAdmin();
@@ -567,7 +572,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dataInicio = document.getElementById('filtro-data-inicio').value;
         const dataFim = document.getElementById('filtro-data-fim').value;
 
-        let url = 'http://localhost:3000/admin/pedidos?';
+        let url = `${API_URL}/admin/pedidos?`;
         if (cliente) url += `cliente=${encodeURIComponent(cliente)}&`;
         if (sabor) url += `sabor=${encodeURIComponent(sabor)}&`;
         if (status) url += `status=${status}&`;
@@ -624,7 +629,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function carregarPedidosAdmin() {
         try {
-            const resposta = await fetchAutenticado('http://localhost:3000/admin/pedidos');
+            const resposta = await fetchAutenticado(`${API_URL}/admin/pedidos`);
             const pedidos = await resposta.json();
             renderizarPedidosAdmin(pedidos);
         } catch (erro) {
@@ -638,7 +643,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.buscarClientesAdmin = async () => {
         const busca = document.getElementById('filtro-nome-cliente').value;
         try {
-            const resposta = await fetchAutenticado(`http://localhost:3000/admin/clientes?busca=${encodeURIComponent(busca)}`);
+            const resposta = await fetchAutenticado(`${API_URL}/admin/clientes?busca=${encodeURIComponent(busca)}`);
             const clientes = await resposta.json();
             renderizarClientesAdmin(clientes);
         } catch (erro) {
@@ -649,7 +654,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.listarTodosClientes = async () => {
         document.getElementById('filtro-nome-cliente').value = '';
         try {
-            const resposta = await fetchAutenticado('http://localhost:3000/admin/clientes');
+            const resposta = await fetchAutenticado(`${API_URL}/admin/clientes`);
             const clientes = await resposta.json();
             renderizarClientesAdmin(clientes);
         } catch (erro) {
@@ -690,7 +695,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!novoTelefone) return;
         const novoTipo = prompt('Tipo (admin/cliente):', 'cliente');
 
-        fetchAutenticado(`http://localhost:3000/admin/clientes/${id}`, {
+        fetchAutenticado(`${API_URL}/admin/clientes/${id}`, {
             method: 'PUT',
             body: JSON.stringify({ nome: novoNome, telefone: novoTelefone, tipo: novoTipo || 'cliente' })
         }).then(() => listarTodosClientes());
@@ -698,7 +703,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.deletarClienteAdmin = async (id) => {
         if (confirm('⚠️ Excluir este cliente e todos os seus pedidos?')) {
-            await fetchAutenticado(`http://localhost:3000/admin/clientes/${id}`, { method: 'DELETE' });
+            await fetchAutenticado(`${API_URL}/admin/clientes/${id}`, { method: 'DELETE' });
             listarTodosClientes();
         }
     };

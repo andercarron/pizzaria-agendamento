@@ -1,3 +1,5 @@
+const API_URL = 'https://pizzaria-agendamento.onrender.com';
+
 // ═══════════════════════════════════════════
 // BLOCO 1: VERIFICAÇÃO DE AUTENTICAÇÃO
 // ═══════════════════════════════════════════
@@ -49,7 +51,7 @@ window.logout = () => {
 // ═══════════════════════════════════════════
 async function carregarPedidos() {
     try {
-        const resposta = await fetchAutenticado('http://localhost:3000/pedidos');
+        const resposta = await fetchAutenticado(`${API_URL}/pedidos`);
         const pedidos = await resposta.json();
 
         const corpoTabela = document.getElementById('corpo-tabela');
@@ -87,7 +89,7 @@ async function carregarPedidos() {
 // ═══════════════════════════════════════════
 window.cancelarPedido = async (id) => {
     if (confirm('Tem certeza que deseja cancelar este pedido?')) {
-        await fetchAutenticado(`http://localhost:3000/pedidos/${id}/cancelar`, {
+        await fetchAutenticado(`${API_URL}/pedidos/${id}/cancelar`, {
             method: 'PATCH'
         });
         carregarPedidos();

@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Cadastro - Pizzaria</title>
+    <title>🍕 Cadastro - Pizzaria</title>
     <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
     <div class="container-auth">
-        <h1> Pizzaria</h1>
+        <h1>🍕 Pizzaria</h1>
         <h2>Criar Conta</h2>
         
         <form id="form-cadastro">
@@ -49,6 +49,8 @@
     </div>
 
     <script>
+        const API_URL = 'https://pizzaria-agendamento.onrender.com';
+        
         document.getElementById('form-cadastro').addEventListener('submit', async (evento) => {
             evento.preventDefault();
 
@@ -60,11 +62,10 @@
             const erroDiv = document.getElementById('erro-cadastro');
             const sucessoDiv = document.getElementById('sucesso-cadastro');
 
-            // ─── VALIDAÇÕES DO FRONT-END ───
             if (senha !== confirmarSenha) {
                 erroDiv.textContent = 'As senhas não coincidem';
                 erroDiv.style.display = 'block';
-                return; // Para aqui
+                return;
             }
 
             if (senha.length < 6) {
@@ -74,7 +75,7 @@
             }
 
             try {
-                const resposta = await fetch('http://localhost:3000/auth/cadastrar', {
+                const resposta = await fetch(`${API_URL}/auth/cadastrar`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ nome, email, telefone, senha })
@@ -86,16 +87,13 @@
                     throw new Error(dados.erro || 'Erro ao cadastrar');
                 }
 
-                // ─── CADASTRO BEM SUCEDIDO ───
                 sucessoDiv.textContent = 'Cadastro realizado! Redirecionando...';
                 sucessoDiv.style.display = 'block';
                 erroDiv.style.display = 'none';
 
-                // Salva o token que já veio na resposta
                 localStorage.setItem('token', dados.token);
                 localStorage.setItem('cliente', JSON.stringify(dados.cliente));
 
-                // Redireciona após 2 segundos
                 setTimeout(() => {
                     window.location.href = 'index.html';
                 }, 2000);
