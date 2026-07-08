@@ -89,47 +89,47 @@ window.excluirConta = async () => {
 };
 
 // ═══════════════════════════════════════════
-// BLOCO 7: NAVEGAÇÃO POR ABAS
-// ═══════════════════════════════════════════
-window.mostrarAba = (id) => {
-    document.querySelectorAll('.aba-conteudo').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.abas-navegacao > .aba-btn').forEach(el => el.classList.remove('active'));
-    
-    document.getElementById(id).classList.add('active');
-    event.target.classList.add('active');
-    
-    if (id === 'aba-cupons') carregarPedidos();
-    if (id === 'aba-admin') {
-        carregarDashboard();
-        carregarPedidosAdmin();
-    }
-};
-
-window.mostrarSubAba = (id) => {
-    document.querySelectorAll('#aba-admin .aba-conteudo').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.sub-abas .aba-btn').forEach(el => el.classList.remove('active'));
-    
-    document.getElementById(id).classList.add('active');
-    event.target.classList.add('active');
-    
-    if (id === 'sub-dashboard') carregarDashboard();
-    if (id === 'sub-pedidos') carregarPedidosAdmin();
-    if (id === 'sub-clientes') listarTodosClientes();
-    if (id === 'sub-produtos') carregarProdutosAdmin();
-};
-
-// ═══════════════════════════════════════════
-// BLOCO 8: CARRINHO (ESTADO)
+// BLOCO 7: CARRINHO (ESTADO)
 // ═══════════════════════════════════════════
 const carrinho = {};
 
 // ═══════════════════════════════════════════
-// BLOCO 9: TUDO QUE DEPENDE DO HTML CARREGADO
+// BLOCO 8: TUDO QUE DEPENDE DO HTML CARREGADO
 // ═══════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
 
     // ═══════════════════════════════════════════
-    // 9.1: CARREGAR CARDÁPIO
+    // 8.1: NAVEGAÇÃO POR ABAS
+    // ═══════════════════════════════════════════
+    window.mostrarAba = (id) => {
+        document.querySelectorAll('.aba-conteudo').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.abas-navegacao > .aba-btn').forEach(el => el.classList.remove('active'));
+        
+        document.getElementById(id).classList.add('active');
+        event.target.classList.add('active');
+        
+        if (id === 'aba-cupons') carregarPedidos();
+        if (id === 'aba-admin') {
+            carregarDashboard();
+            carregarPedidosAdmin();
+        }
+    };
+
+    window.mostrarSubAba = (id) => {
+        document.querySelectorAll('#aba-admin .aba-conteudo').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.sub-abas .aba-btn').forEach(el => el.classList.remove('active'));
+        
+        document.getElementById(id).classList.add('active');
+        event.target.classList.add('active');
+        
+        if (id === 'sub-dashboard') carregarDashboard();
+        if (id === 'sub-pedidos') carregarPedidosAdmin();
+        if (id === 'sub-clientes') listarTodosClientes();
+        if (id === 'sub-produtos') carregarProdutosAdmin();
+    };
+
+    // ═══════════════════════════════════════════
+    // 8.2: CARREGAR CARDÁPIO
     // ═══════════════════════════════════════════
     async function carregarCardapio() {
         try {
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ═══════════════════════════════════════════
-    // 9.2: CARRINHO
+    // 8.3: CARRINHO
     // ═══════════════════════════════════════════
     window.adicionarAoCarrinho = (nome, preco) => {
         if (carrinho[nome]) {
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ═══════════════════════════════════════════
-    // 9.3: FINALIZAR PEDIDO
+    // 8.4: FINALIZAR PEDIDO
     // ═══════════════════════════════════════════
     window.finalizarPedido = async () => {
         const horario = document.getElementById('horario').value;
@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ═══════════════════════════════════════════
-    // 9.4: CARREGAR PEDIDOS (CUPONS)
+    // 8.5: CARREGAR PEDIDOS (CUPONS)
     // ═══════════════════════════════════════════
     async function carregarPedidos() {
         try {
@@ -393,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ═══════════════════════════════════════════
-    // 9.5: CANCELAR PEDIDOS
+    // 8.6: CANCELAR PEDIDOS
     // ═══════════════════════════════════════════
     window.cancelarPedidos = async (ids) => {
         if (confirm('Tem certeza que deseja cancelar este(s) pedido(s)?')) {
@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ═══════════════════════════════════════════
-    // 9.6: ATUALIZAR STATUS (ADMIN)
+    // 8.7: ATUALIZAR STATUS (ADMIN)
     // ═══════════════════════════════════════════
     window.atualizarStatus = async (id, status) => {
         await fetchAutenticado(`${API_URL}/admin/pedidos/${id}/status`, {
@@ -423,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ═══════════════════════════════════════════
-    // 9.7: DASHBOARD
+    // 8.8: DASHBOARD
     // ═══════════════════════════════════════════
     async function carregarDashboard() {
         try {
@@ -462,7 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ═══════════════════════════════════════════
-    // 9.8: CRUD PRODUTOS (ADMIN)
+    // 8.9: CRUD PRODUTOS (ADMIN)
     // ═══════════════════════════════════════════
     window.carregarProdutosAdmin = async () => {
         try {
@@ -563,7 +563,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ═══════════════════════════════════════════
-    // 9.9: CRUD PEDIDOS ADMIN
+    // 8.10: CRUD PEDIDOS ADMIN
     // ═══════════════════════════════════════════
     window.filtrarPedidosAdmin = async () => {
         const cliente = document.getElementById('filtro-cliente').value;
@@ -638,7 +638,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ═══════════════════════════════════════════
-    // 9.10: CRUD CLIENTES ADMIN
+    // 8.11: CRUD CLIENTES ADMIN
     // ═══════════════════════════════════════════
     window.buscarClientesAdmin = async () => {
         const busca = document.getElementById('filtro-nome-cliente').value;
@@ -709,7 +709,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ═══════════════════════════════════════════
-    // 9.11: INICIAR
+    // 8.12: INICIAR
     // ═══════════════════════════════════════════
     carregarCardapio();
     carregarPedidos();
