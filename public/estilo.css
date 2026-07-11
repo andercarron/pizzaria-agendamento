@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════
-   TEMA: Bege + Azul + Branco
-   Paleta: Fundo #f5f0e8 | Destaque #2563eb | Cards #ffffff
+   TEMA: Bege + Azul #6073d3 + Branco
+   Paleta: Fundo #f5f0e8 | Destaque #6073d3 | Cards #ffffff
    ═══════════════════════════════════════════ */
 
 /* ═══════════════ RESET ═══════════════ */
@@ -24,19 +24,19 @@ body {
 /* ═══════════════ TÍTULOS ═══════════════ */
 h1 {
     text-align: center;
-    color: #1d4ed8;
+    color: #4a5bc4;
     margin-bottom: 10px;
     font-size: 2.2em;
     font-weight: 700;
 }
 
 h2 {
-    color: #1d4ed8;
+    color: #4a5bc4;
     margin-bottom: 20px;
     font-size: 1.4em;
     font-weight: 600;
     padding-bottom: 10px;
-    border-bottom: 2px solid #2563eb;
+    border-bottom: 2px solid #6073d3;
 }
 
 h3 {
@@ -101,15 +101,15 @@ input, select {
 
 input:focus, select:focus {
     outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    border-color: #6073d3;
+    box-shadow: 0 0 0 3px rgba(96, 115, 211, 0.15);
 }
 
 /* ═══════════════ BOTÃO PRINCIPAL ═══════════════ */
 button {
     width: 100%;
     padding: 14px;
-    background-color: #2563eb;
+    background-color: #6073d3;
     color: white;
     border: none;
     border-radius: 8px;
@@ -120,7 +120,7 @@ button {
 }
 
 button:hover {
-    background-color: #1d4ed8;
+    background-color: #4a5bc4;
 }
 
 button:active {
@@ -135,7 +135,7 @@ table {
 }
 
 thead th {
-    background-color: #2563eb;
+    background-color: #6073d3;
     color: white;
     padding: 14px 15px;
     text-align: left;
@@ -162,7 +162,7 @@ tbody tr:hover {
 
 /* ═══════════════ STATUS ═══════════════ */
 .status-pendente {
-    color: #2563eb;
+    color: #6073d3;
     font-weight: 600;
 }
 
@@ -172,7 +172,7 @@ tbody tr:hover {
 }
 
 .status-pronto {
-    color: #2563eb;
+    color: #6073d3;
     font-weight: 600;
 }
 
@@ -234,13 +234,13 @@ tbody tr:hover {
 }
 
 .sucesso-mensagem {
-    background-color: #eff6ff;
-    color: #1d4ed8;
+    background-color: #eef0ff;
+    color: #4a5bc4;
     padding: 12px;
     border-radius: 8px;
     margin-bottom: 15px;
     font-weight: 500;
-    border-left: 4px solid #2563eb;
+    border-left: 4px solid #6073d3;
 }
 
 /* ═══════════════ LINK ═══════════════ */
@@ -251,7 +251,7 @@ tbody tr:hover {
 }
 
 .link-auth a {
-    color: #2563eb;
+    color: #6073d3;
     text-decoration: none;
     font-weight: 600;
 }
@@ -301,7 +301,7 @@ tbody tr:hover {
 
 .cardapio-preco {
     font-weight: 700;
-    color: #2563eb;
+    color: #6073d3;
     font-size: 1.1em;
     min-width: 80px;
     text-align: right;
@@ -310,7 +310,7 @@ tbody tr:hover {
 .btn-adicionar {
     width: 36px;
     height: 36px;
-    background-color: #2563eb;
+    background-color: #6073d3;
     color: white;
     border: none;
     border-radius: 50%;
@@ -324,7 +324,7 @@ tbody tr:hover {
 }
 
 .btn-adicionar:hover {
-    background-color: #1d4ed8;
+    background-color: #4a5bc4;
 }
 
 /* ═══════════════ CARRINHO ═══════════════ */
@@ -339,12 +339,12 @@ tbody tr:hover {
     padding: 15px 0;
     font-size: 1.3em;
     color: #333;
-    border-top: 2px solid #2563eb;
+    border-top: 2px solid #6073d3;
     margin-top: 10px;
 }
 
 .total-carrinho strong {
-    color: #2563eb;
+    color: #6073d3;
 }
 
 .qtd-carrinho {
@@ -458,11 +458,11 @@ tbody tr:hover {
     display: flex;
     justify-content: space-between;
     padding: 12px 15px;
-    background-color: #eff6ff;
+    background-color: #eef0ff;
     font-weight: 700;
     font-size: 1.1em;
-    color: #1d4ed8;
-    border-top: 2px solid #2563eb;
+    color: #4a5bc4;
+    border-top: 2px solid #6073d3;
 }
 
 .cupom-acoes {
@@ -480,7 +480,7 @@ tbody tr:hover {
 }
 
 .btn-pronto {
-    background-color: #2563eb;
+    background-color: #6073d3;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -492,11 +492,11 @@ tbody tr:hover {
 }
 
 .btn-pronto:hover {
-    background-color: #1d4ed8;
+    background-color: #4a5bc4;
 }
 
 .btn-retirado {
-    background-color: #2563eb;
+    background-color: #6073d3;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -508,11 +508,11 @@ tbody tr:hover {
 }
 
 .btn-retirado:hover {
-    background-color: #1d4ed8;
+    background-color: #4a5bc4;
 }
 
 .btn-editar {
-    background-color: #2563eb;
+    background-color: #6073d3;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -525,7 +525,7 @@ tbody tr:hover {
 }
 
 .btn-editar:hover {
-    background-color: #1d4ed8;
+    background-color: #4a5bc4;
 }
 
 /* ═══════════════ BOTÃO EXCLUIR CONTA ═══════════════ */
@@ -552,7 +552,7 @@ tbody tr:hover {
 .btn-admin-toggle {
     width: auto;
     padding: 10px 20px;
-    background-color: #1d4ed8;
+    background-color: #4a5bc4;
     color: white;
     border: none;
     border-radius: 8px;
@@ -563,7 +563,7 @@ tbody tr:hover {
 }
 
 .btn-admin-toggle:hover {
-    background-color: #1e3a5f;
+    background-color: #3a47a0;
 }
 
 .secao-admin {
@@ -638,12 +638,12 @@ tbody tr:hover {
 
 .aba-btn.active {
     background-color: #ffffff;
-    color: #1d4ed8;
-    box-shadow: 0 -2px 0 #2563eb;
+    color: #4a5bc4;
+    box-shadow: 0 -2px 0 #6073d3;
 }
 
 .aba-admin {
-    border: 1px dashed #2563eb;
+    border: 1px dashed #6073d3;
 }
 
 .aba-conteudo {
@@ -660,7 +660,7 @@ tbody tr:hover {
 }
 
 .sub-abas .aba-btn.active {
-    background-color: #2563eb;
+    background-color: #6073d3;
     color: white;
 }
 
@@ -715,7 +715,7 @@ tbody tr:hover {
 }
 
 .dash-numero.verde {
-    color: #2563eb;
+    color: #6073d3;
 }
 
 .dash-numero.vermelho {
@@ -739,7 +739,7 @@ tbody tr:hover {
     right: 20px;
     z-index: 9999;
     background-color: #ffffff;
-    border: 2px solid #2563eb;
+    border: 2px solid #6073d3;
     border-radius: 12px;
     padding: 15px 20px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
@@ -749,12 +749,12 @@ tbody tr:hover {
 }
 
 @keyframes pulsar {
-    0%, 100% { box-shadow: 0 4px 20px rgba(37,99,235,0.15); }
-    50% { box-shadow: 0 4px 30px rgba(37,99,235,0.5); }
+    0%, 100% { box-shadow: 0 4px 20px rgba(96,115,211,0.15); }
+    50% { box-shadow: 0 4px 30px rgba(96,115,211,0.5); }
 }
 
 .notificacao-conteudo strong {
-    color: #1d4ed8;
+    color: #4a5bc4;
     display: block;
     margin-bottom: 5px;
 }
