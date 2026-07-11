@@ -711,3 +711,46 @@ tbody tr:hover {
     padding: 5px 0;
     border-bottom: 1px dotted #e8e0d5;
 }
+/* ═══════════════ SOMBRAS NOS CARDS ═══════════════ */
+section {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease;
+}
+
+section:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.barra-topo {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.container-auth {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
+}
+
+.cupom {
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.3s ease;
+}
+
+.cupom:hover {
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.10);
+}
+
+.dash-card {
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.dash-card:hover {
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.cardapio-item {
+    transition: box-shadow 0.3s ease;
+}
+
+.cardapio-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
